@@ -1,7 +1,6 @@
 package com.nemogz.CounterApp.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import com.nemogz.CounterApp.databaseobjects.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class UserRepository implements CrudRepository {
-
-}
+public interface UserRepository extends JpaRepository<User, Long> {}
