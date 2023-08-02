@@ -13,16 +13,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column (name = "user_name")
     private String userName;
 
-    @Column
+    @Column (name = "password")
     private String password;
 
-    @Column
+    @Column (name = "salt")
     private String salt;
 
-    @Column
+    @Column (name = "date_created")
     private LocalDateTime dateCreated;
 
     @OneToMany(mappedBy = "user")
