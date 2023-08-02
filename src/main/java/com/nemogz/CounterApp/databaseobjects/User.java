@@ -10,7 +10,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column (name = "user_name")
@@ -27,6 +27,12 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Counter> counters;
+
+    @OneToOne (mappedBy = "little_house")
+    private LittleHouse littleHouse;
+
+    @OneToOne (mappedBy = "homework")
+    private Homework homework;
 
     public User() {
     }

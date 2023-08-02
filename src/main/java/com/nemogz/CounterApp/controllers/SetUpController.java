@@ -43,14 +43,27 @@ public class SetUpController {
     }
 
     @PostMapping("/littleHouse")
-    ResponseEntity<String> littleHouseSetUp(@RequestBody User user) {
+    ResponseEntity<String> littleHouseSetUp(@RequestBody Long userId) {
 
-        Optional<User> userOptional = userRepository.findById(user.getId());
+        // safe way to handle null exceptions
+        Optional<User> userOptional = userRepository.findById(userId);
 
-
-        Counter[] counters = counterService.getBasicLittleHouseCounters(user);
-        counterRepository.saveAll(Arrays.asList(counters));
-        return new ResponseEntity<>("Little House Counters Created", HttpStatus.OK);
+        if (userOptional.isPresent()) {
+            Counter[] counters = counterService.getBasicLittleHouseCounters(userOptional.get());
+            counterRepository.saveAll(Arrays.asList(counters));
+            return new ResponseEntity<>("Little House Counters Created", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("[Error]Little House Counters NOT Created", HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    @PostMapping("/homework")
+    ResponseEntity<String> homeworkSetUp (@RequestBody Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            return new ResponseEntity<>("Homework Coutner Created", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Homework Coutner Created", HttpStatus.UNPROCESSABLE_ENTITY);
+
+    }
 }

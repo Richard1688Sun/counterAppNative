@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Counter {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column (name = "name")
@@ -25,7 +25,7 @@ public class Counter {
     private Integer count;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user")
     private User user;
 
     public String getCounterName() {
