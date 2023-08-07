@@ -4,6 +4,7 @@ import com.nemogz.CounterApp.repository.CounterRepository;
 import com.nemogz.CounterApp.services.CounterService;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping(path = "/counter")
 public class CounterController {
@@ -15,4 +16,9 @@ public class CounterController {
         this.repository = repository;
         this.service = service;
     }
+
+//    @GetMapping
+//    public List<Counter> getCounter() {
+//        return
+//    }
 }

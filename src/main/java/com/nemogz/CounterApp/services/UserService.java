@@ -1,6 +1,7 @@
 package com.nemogz.CounterApp.services;
 
 import com.nemogz.CounterApp.databaseobjects.User;
+import com.nemogz.CounterApp.exceptions.DuplicateUserNameException;
 import com.nemogz.CounterApp.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,17 @@ public class UserService{
     }
 
     /**
-     * Verify new user has not counters attached
+     * Verify new user
+     *  -  has not counters attached
+     *  -
      * Reason: Counters need to be created first since they hold the foreign key
      * @param newUser
-     * @return valid user creation
      */
-    public boolean validCreateUser(User newUser) {
-        return newUser.getCounters().isEmpty();
+    public void checkCreateUser(User newUser) throws DuplicateUserNameException {
+        if (repository.findByUserName(newUser.getUserName()).isPresent()) {
+            throw new DuplicateUserNameException();
+        }
+//        return newUser.getCounters().isEmpty();
     }
 
 }

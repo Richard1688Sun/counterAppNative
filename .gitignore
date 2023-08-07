@@ -34,3 +34,4 @@ build/
 
 ### Credentials ###
 /env.properties
+/src/main/resources/certs/

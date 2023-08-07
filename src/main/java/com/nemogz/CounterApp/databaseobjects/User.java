@@ -10,16 +10,16 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (name = "user_name")
+    @Column (name = "user_name", nullable = false ,unique = true)
     private String userName;
 
-    @Column (name = "password")
+    @Column (name = "password", nullable = false)
     private String password;
 
-    @Column (name = "salt")
+    @Column (name = "salt", nullable = false)
     private String salt;
 
     @Column (name = "date_created")
@@ -27,12 +27,27 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Counter> counters;
-
-    @OneToOne (mappedBy = "little_house")
+    @OneToOne (mappedBy = "user")
     private LittleHouse littleHouse;
 
-    @OneToOne (mappedBy = "homework")
+    @OneToOne (mappedBy = "user")
     private Homework homework;
+
+    public LittleHouse getLittleHouse() {
+        return littleHouse;
+    }
+
+    public void setLittleHouse(LittleHouse littleHouse) {
+        this.littleHouse = littleHouse;
+    }
+
+    public Homework getHomework() {
+        return homework;
+    }
+
+    public void setHomework(Homework homework) {
+        this.homework = homework;
+    }
 
     public User() {
     }
@@ -81,12 +96,21 @@ public class User {
         this.counters = counters;
     }
 
-    public User(Long id, String userName, String password, String salt, LocalDateTime dateCreated, List<Counter> counters) {
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                '}';
+    }
+
+    public User(Long id, String userName, String password, String salt, LocalDateTime dateCreated) {
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.salt = salt;
         this.dateCreated = dateCreated;
-        this.counters = counters;
     }
 }
